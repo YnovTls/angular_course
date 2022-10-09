@@ -1,3 +1,5 @@
 <button (click)="click()">Click me</button>
 
-<app-child [clicksAmount]="amount" (reset)="reset($event)"></app-child>
+<app-child [clicksAmount]="amount" (reset)="reset($event)">
+  <span title>Nombre de clics : </span>
+</app-child>

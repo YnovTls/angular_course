@@ -1,3 +1,6 @@
-<p>{{ clicksAmount }}</p>
+<h3>
+  <ng-content select="[title]"></ng-content>
+  <span>{{ clicksAmount }}</span>
+</h3>
 
 <button (click)="resetAmount()">Reset</button>
