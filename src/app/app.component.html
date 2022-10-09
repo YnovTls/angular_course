@@ -1,5 +1,11 @@
 <button (click)="click()">Click me</button>
 
-<app-child [clicksAmount]="amount" (reset)="reset($event)">
+<input type="color" [(ngModel)]="color" />
+
+<app-child [clicksAmount]="amount" [color]="color" (reset)="reset($event)">
   <span title>Nombre de clics : </span>
 </app-child>
+
+<ul>
+  <li *ngFor="let item of list">{{ item }}</li>
+</ul>

@@ -1,6 +1,6 @@
-<h3>
-  <ng-content select="[title]"></ng-content>
-  <span>{{ clicksAmount }}</span>
-</h3>
+<button (click)="resetAmount()" *ngIf="clicksAmount > 0">Reset</button>
 
-<button (click)="resetAmount()">Reset</button>
+<h3 [ngStyle]="{ 'text-decoration': clicksAmount > 0 ? 'underline' : 'none' }">
+  <ng-content select="[title]"></ng-content>
+  <span [ngClass]="{ hidden: clicksAmount === 0 }" appHighlight [color]="color">{{ clicksAmount }}</span>
+</h3>

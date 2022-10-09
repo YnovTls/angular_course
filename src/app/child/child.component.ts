@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 })
 export class ChildComponent implements OnInit {
   @Input() clicksAmount: number = 0;
+  @Input() color: string = "#123456";
   @Output() reset: EventEmitter<number> = new EventEmitter<number>();
 
   constructor() {}
