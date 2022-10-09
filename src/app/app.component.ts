@@ -6,5 +6,14 @@ import { Component } from "@angular/core";
   styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-  title = "angular-course";
+  public amount: number = 0;
+
+  public click(): void {
+    this.amount++;
+  }
+
+  public reset(value: number): void {
+    console.log(value);
+    this.amount = 0;
+  }
 }
