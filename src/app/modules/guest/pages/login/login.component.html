@@ -1,1 +1,10 @@
-<p>login works!</p>
+<div class="container">
+  <div class="card">
+    <input type="text" [(ngModel)]="username" placeholder="Username" />
+    <input type="password" [(ngModel)]="password" placeholder="Password" />
+
+    <button (click)="login()">Login</button>
+
+    <p *ngIf="errorMessage !== ''">{{ errorMessage }}</p>
+  </div>
+</div>

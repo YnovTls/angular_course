@@ -1,15 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { AuthenticationService } from "src/app/core/services/authentication.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  public username: string = "";
+  public password: string = "";
+  public errorMessage: string = "";
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService, private router: Router) {}
 
-  ngOnInit(): void {
+  public login(): void {
+    if (this.authenticationService.login(this.username, this.password)) {
+      this.router.navigateByUrl("/user");
+    } else {
+      this.errorMessage = "Identifiants incorrectes !";
+    }
   }
-
 }

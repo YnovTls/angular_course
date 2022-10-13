@@ -1,10 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
-
-export interface Movie {
-  title: string;
-  image: string;
-}
+import { Movie } from "../../models/movie.interface";
+import { MoviesService } from "../../services/movies.service";
 
 @Component({
   selector: "app-movies",
@@ -12,22 +9,13 @@ export interface Movie {
   styleUrls: ["./movies.component.scss"],
 })
 export class MoviesComponent {
-  public movies: Movie[] = [
-    {
-      title: "Interstellar",
-      image: "https://fr.web.img5.acsta.net/c_310_420/pictures/14/09/24/12/08/158828.jpg",
-    },
-    {
-      title: "TOP GUN: MAVERICK",
-      image: "https://fr.web.img6.acsta.net/c_310_420/pictures/22/03/29/15/12/0827894.jpg",
-    },
-    {
-      title: "La Ligne Verte",
-      image: "https://fr.web.img2.acsta.net/c_310_420/medias/nmedia/18/66/15/78/19254683.jpg",
-    },
-  ];
+  public movies: Movie[] = [];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private moviesService: MoviesService) {
+    this.moviesService.fetchMovies().subscribe((movies) => {
+      this.movies = movies;
+    });
+  }
 
   public openMovie(movie: Movie): void {
     this.router.navigateByUrl(`/user/movies/${movie.title}`, { state: { movie } });
