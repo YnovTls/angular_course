@@ -30,6 +30,6 @@ export class MoviesComponent {
   constructor(private router: Router) {}
 
   public openMovie(movie: Movie): void {
-    this.router.navigateByUrl(`/movies/${movie.title}`, { state: { movie } });
+    this.router.navigateByUrl(`/user/movies/${movie.title}`, { state: { movie } });
   }
 }

@@ -11,10 +11,12 @@ export class MovieComponent {
   public movie: Movie | undefined = undefined;
 
   constructor(private router: Router) {
+    console.log("toto");
+
     if (this.router.getCurrentNavigation()?.extras && this.router.getCurrentNavigation()?.extras.state?.["movie"]) {
       this.movie = this.router.getCurrentNavigation()?.extras.state?.["movie"];
     } else {
-      this.router.navigateByUrl("/movies");
+      this.router.navigateByUrl("/user/movies");
     }
   }
 }
