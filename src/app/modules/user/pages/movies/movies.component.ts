@@ -1,5 +1,5 @@
-import { Component } from "@angular/core";
-import { Router } from "@angular/router";
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Movie } from "../../models/movie.interface";
 import { MoviesService } from "../../services/movies.service";
 
@@ -8,12 +8,16 @@ import { MoviesService } from "../../services/movies.service";
   templateUrl: "./movies.component.html",
   styleUrls: ["./movies.component.scss"],
 })
-export class MoviesComponent {
+export class MoviesComponent implements OnInit {
   public movies: Movie[] = [];
 
-  constructor(private router: Router, private moviesService: MoviesService) {
-    this.moviesService.fetchMovies().subscribe((movies) => {
-      this.movies = movies;
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
+  ngOnInit(): void {
+    this.route.data.subscribe((data) => {
+      if (typeof data === "object" && data["movies"] !== undefined) {
+        this.movies = data["movies"];
+      }
     });
   }
 
