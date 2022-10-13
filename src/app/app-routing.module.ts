@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { IsAuthGuard } from "./core/guards/is-auth.guard";
 import { GuestLayoutComponent } from "./layouts/guest-layout/guest-layout.component";
 import { UserLayoutComponent } from "./layouts/user-layout/user-layout.component";
-import { NotFoundComponent } from "./modules/guest/pages/not-found/not-found.component";
 
 const routes: Routes = [
   {
@@ -14,6 +14,7 @@ const routes: Routes = [
     component: UserLayoutComponent,
     path: "user",
     loadChildren: () => import("./modules/user/user.module").then((module) => module.UserModule),
+    canLoad: [IsAuthGuard],
   },
   {
     path: "**",
