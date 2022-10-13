@@ -1,0 +1,15 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <button (click)="click()">Click me</button>
+
+  <input type="color" [(ngModel)]="color" />
+
+  <app-child [clicksAmount]="amount" [color]="color" (reset)="reset($event)">
+    <span title>Nombre de clics : </span>
+  </app-child>
+
+  <ul>
+    <li *ngFor="let item of list" appHighlight [color]="color">{{ item }}</li>
+  </ul>
+</div>

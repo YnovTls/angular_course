@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  padding: 10px 30px;
+  justify-content: flex-end;
+  background-color: #3380c0;
+  color: #ffffff;
+  box-shadow: 0 0 3px #3380c0;
+
+  .item {
+    cursor: pointer;
+    padding: 10px;
+    transition: all 0.6s;
+    border-radius: 3px;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #3380c0;
+    }
+  }
+}

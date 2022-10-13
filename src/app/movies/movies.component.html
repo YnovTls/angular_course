@@ -1,0 +1,12 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <h1>Movies</h1>
+
+  <div class="movies">
+    <div class="movie" *ngFor="let movie of movies" (click)="openMovie(movie)">
+      <img [src]="movie.image" [alt]="movie.title" />
+      <label>{{ movie.title }}</label>
+    </div>
+  </div>
+</div>
