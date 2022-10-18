@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "web-mobile-7fc66": {
+      "hosting": {
+        "angular-course": [
+          "web-mobile-7fc66"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "web-mobile-7fc66"
+  }
+}
