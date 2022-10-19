@@ -8,17 +8,18 @@ import { AuthenticationService } from "src/app/core/services/authentication.serv
   styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent {
-  public username: string = "";
+  public email: string = "";
   public password: string = "";
   public errorMessage: string = "";
 
   constructor(private authenticationService: AuthenticationService, private router: Router) {}
 
-  public login(): void {
-    if (this.authenticationService.login(this.username, this.password)) {
+  public async login(): Promise<void> {
+    try {
+      await this.authenticationService.signIn(this.email, this.password);
       this.router.navigateByUrl("/user");
-    } else {
-      this.errorMessage = "Identifiants incorrectes !";
+    } catch (error) {
+      this.errorMessage = "Bad Credentials !";
     }
   }
 }
