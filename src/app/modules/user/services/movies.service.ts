@@ -1,33 +1,54 @@
 import { Injectable } from "@angular/core";
-import { delay, Observable, of } from "rxjs";
+import { Firestore } from "@angular/fire/firestore";
+import { AggregateField, AggregateQuerySnapshot, collection, CollectionReference, DocumentData, DocumentReference } from "firebase/firestore";
+import { Observable } from "rxjs";
+import { GenericFirestoreService } from "src/app/core/services/generic-firestore.service";
+import { FIREBASE_COLLECTION_PATHS } from "../constants/firestore-collection-paths.constant";
 import { Movie } from "../models/movie.interface";
+import { v4 as uuidv4 } from "uuid";
 
 @Injectable({
   providedIn: "root",
 })
 export class MoviesService {
-  private movies: Movie[] = [
-    {
-      title: "Interstellar",
-      image: "https://fr.web.img5.acsta.net/c_310_420/pictures/14/09/24/12/08/158828.jpg",
-    },
-    {
-      title: "TOP GUN: MAVERICK",
-      image: "https://fr.web.img6.acsta.net/c_310_420/pictures/22/03/29/15/12/0827894.jpg",
-    },
-    {
-      title: "La Ligne Verte",
-      image: "https://fr.web.img2.acsta.net/c_310_420/medias/nmedia/18/66/15/78/19254683.jpg",
-    },
-  ];
+  private moviesCollection: CollectionReference<DocumentData>;
 
-  constructor() {}
-
-  public fetchMovies(): Observable<Movie[]> {
-    return of(this.movies).pipe(delay(2000));
+  constructor(private readonly firestore: Firestore, private readonly genericFirestoreService: GenericFirestoreService) {
+    this.moviesCollection = collection(this.firestore, FIREBASE_COLLECTION_PATHS.MOVIES);
   }
 
-  public fetchMovieByTitle(title: string): Observable<Movie | undefined> {
-    return of(this.movies.find((movie) => movie.title === title)).pipe(delay(2000));
+  public async countMovies(): Promise<AggregateQuerySnapshot<{ count: AggregateField<number> }>> {
+    return await this.genericFirestoreService.count(this.moviesCollection);
+  }
+
+  public fetchMovies(direction: "asc" | "desc" = "asc"): Observable<Movie[]> {
+    return this.genericFirestoreService.fetchAll<Movie>(this.moviesCollection, "title", direction);
+  }
+
+  public fetchMovieByTitle(title: string): Observable<Movie[]> {
+    return this.genericFirestoreService.fetchByProperty<Movie>(this.moviesCollection, "title", title, 1);
+  }
+
+  public fetchMovieById(id: string): Observable<Movie> {
+    return this.genericFirestoreService.fetchById<Movie>(FIREBASE_COLLECTION_PATHS.MOVIES, id);
+  }
+
+  public fetchMoviesByPagination(startAfterMovieName: string, maxResult: number = 30, direction: "asc" | "desc" = "asc") {
+    return this.genericFirestoreService.fetchByPagination<Movie>(this.moviesCollection, "name", startAfterMovieName, maxResult, direction) as Observable<
+      Movie[]
+    >;
+  }
+
+  public addNewMovie(movie: Movie): Promise<DocumentReference<DocumentData>> {
+    movie.id = uuidv4();
+    return this.genericFirestoreService.create(this.moviesCollection, movie);
+  }
+
+  public updateMovie(movie: Movie): Promise<void> {
+    return this.genericFirestoreService.update(FIREBASE_COLLECTION_PATHS.MOVIES, movie);
+  }
+
+  public deleteMovie(id: string) {
+    return this.genericFirestoreService.delete(FIREBASE_COLLECTION_PATHS.MOVIES, id);
   }
 }

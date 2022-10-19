@@ -12,7 +12,7 @@ import { MoviesService } from "../../services/movies.service";
 export class MoviesComponent implements OnInit {
   public movies: Movie[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router, private loaderService: LoaderService) {}
+  constructor(private route: ActivatedRoute, private router: Router, private loaderService: LoaderService, private moviesService: MoviesService) {}
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {

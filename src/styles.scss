@@ -1,9 +1,36 @@
 /* You can add global styles to this file, and also import other style files */
 
+:root {
+  --primary-color: #2c3e50;
+  --primary-shadow: #213446;
+  --secondary-color: #34495e;
+  --tertiary-color: #3165db;
+
+  --white: #f2f2f2;
+  --black: #000000;
+  --grey-color: #999999;
+  --light-grey-color: #cfcfcf;
+  --dark-grey-color: #444444;
+
+  --success-color: #3cb765;
+  --error-color: #db4a43;
+  --warning-color: #db8641;
+  --info-color: #56a8df;
+
+  --contrast-color: #f2f2f2;
+  --disabled-color: #bbbbbb;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  overflow: hidden;
 }
 
 * {
