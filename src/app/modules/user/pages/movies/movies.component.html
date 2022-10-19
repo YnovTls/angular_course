@@ -1,10 +1,6 @@
 <div class="container">
   <h1>Movies</h1>
 
-  <div class="spinner" *ngIf="movies.length === 0">
-    <app-spinner></app-spinner>
-  </div>
-
   <div class="movies" *ngIf="movies.length > 0">
     <div class="movie" *ngFor="let movie of movies" (click)="openMovie(movie)">
       <img [src]="movie.image" [alt]="movie.title" />
