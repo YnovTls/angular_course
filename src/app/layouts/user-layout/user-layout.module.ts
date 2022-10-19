@@ -1,12 +1,11 @@
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { UserLayoutComponent } from "./user-layout.component";
 import { NavbarComponent } from "./navbar/navbar.component";
-import { RouterModule } from "@angular/router";
+import { SharedModule } from "src/app/shared/shared.module";
 
 @NgModule({
   declarations: [UserLayoutComponent, NavbarComponent],
-  imports: [CommonModule, RouterModule],
+  imports: [SharedModule],
   exports: [UserLayoutComponent],
 })
 export class UserLayoutModule {}
