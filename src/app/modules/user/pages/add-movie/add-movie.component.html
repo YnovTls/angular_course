@@ -1,0 +1,22 @@
+<div class="container">
+  <h1>Add new Movie</h1>
+
+  <div class="form">
+    <div class="input">
+      <label for="title">Title</label>
+      <input type="text" id="title" [(ngModel)]="title" (keyup)="onTitleChanged()" />
+    </div>
+
+    <div class="input">
+      <label for="fileName">FileName</label>
+      <input type="text" id="fileName" [(ngModel)]="fileName" disabled />
+    </div>
+
+    <div class="input">
+      <label for="file">File</label>
+      <input type="file" id="file" (change)="onFileSelected($event)" />
+    </div>
+
+    <button (click)="submit()">Submit</button>
+  </div>
+</div>

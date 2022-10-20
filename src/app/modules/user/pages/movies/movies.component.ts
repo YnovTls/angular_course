@@ -19,6 +19,14 @@ export class MoviesComponent implements OnInit {
       if (typeof data === "object" && data["movies"] !== undefined) {
         this.movies = data["movies"];
         this.loaderService.deleteLoaderById("MOVIES_RESOLVER_ID");
+
+        this.movies.forEach(async (movie) => {
+          try {
+            movie.image = await this.moviesService.fetchMovieImage(movie.image);
+          } catch (error) {
+            console.log(error);
+          }
+        });
       }
     });
   }

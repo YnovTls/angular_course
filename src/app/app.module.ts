@@ -14,6 +14,7 @@ import { provideAuth, getAuth } from "@angular/fire/auth";
 import { provideFirestore, getFirestore } from "@angular/fire/firestore";
 import { provideFunctions, getFunctions } from "@angular/fire/functions";
 import { SharedModule } from "./shared/shared.module";
+import { getStorage, provideStorage } from "@angular/fire/storage";
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { SharedModule } from "./shared/shared.module";
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),
+    provideStorage(() => getStorage()),
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
   ],

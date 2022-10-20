@@ -6,6 +6,8 @@ import { GenericFirestoreService } from "src/app/core/services/generic-firestore
 import { FIREBASE_COLLECTION_PATHS } from "../constants/firestore-collection-paths.constant";
 import { Movie } from "../models/movie.interface";
 import { v4 as uuidv4 } from "uuid";
+import { GenericStorageService } from "./generic-storage.service";
+import { UploadMetadata, UploadResult } from "firebase/storage";
 
 @Injectable({
   providedIn: "root",
@@ -13,7 +15,11 @@ import { v4 as uuidv4 } from "uuid";
 export class MoviesService {
   private moviesCollection: CollectionReference<DocumentData>;
 
-  constructor(private readonly firestore: Firestore, private readonly genericFirestoreService: GenericFirestoreService) {
+  constructor(
+    private readonly firestore: Firestore,
+    private readonly genericFirestoreService: GenericFirestoreService,
+    private readonly genericStorageService: GenericStorageService
+  ) {
     this.moviesCollection = collection(this.firestore, FIREBASE_COLLECTION_PATHS.MOVIES);
   }
 
@@ -50,5 +56,15 @@ export class MoviesService {
 
   public deleteMovie(id: string) {
     return this.genericFirestoreService.delete(FIREBASE_COLLECTION_PATHS.MOVIES, id);
+  }
+
+  public fetchMovieImage(fileName: string): Promise<string> {
+    return this.genericStorageService.getFileDownloadUrl(`movies/${fileName}`);
+  }
+
+  public uploadMovieImage(fileName: string, file: File): Promise<UploadResult> {
+    const metadata: UploadMetadata = {};
+
+    return this.genericStorageService.uploadFile(file, `movies/${fileName}`, metadata);
   }
 }
